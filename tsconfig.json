@@ -1,0 +1,14 @@
+{
+  "extends": "@eggjs/tsconfig",
+  "compilerOptions": {
+    "declaration": false,
+    "typeRoots": [
+      "app/typings",
+      "node_modules/@types"
+    ],
+  },
+  "exclude": [
+    "app/public",
+    "app/views"
+  ]
+}
