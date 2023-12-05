@@ -28,7 +28,8 @@ export type DefaultConfig = PowerPartial<EggAppConfig> & BizConfig & {
     client: DataSourceOptions
   }
   jwt: Jwt
-  uploadFileabsolutePath: UploadFileAbsolutePath
+  uploadFileAbsolutePath: UploadFileAbsolutePath
+  mapFileAbsolutePath: string
 };
 
 export type PartialDefaultConfig = PowerPartial<DefaultConfig>;
@@ -64,6 +65,8 @@ export default (appInfo: EggAppConfig) => {
   const filePath = '../../static/uploads';
   const absolutePath = path.resolve(__dirname, filePath);
   config.uploadFileAbsolutePath = absolutePath;
+  const mapFilePath = '/mapFile'
+  config.mapFileAbsolutePath = absolutePath + mapFilePath
 
   const staticAbsolutePath = path.resolve(__dirname, '../../static');
 
@@ -86,14 +89,14 @@ export default (appInfo: EggAppConfig) => {
     },
   };
 
-  config.redis = {
-    client: {
-      host: '101.42.138.18', // Redis 服务器地址
-      port: 6379, // Redis 服务器端口号
-      password: '123456', // Redis 服务器密码（如果有的话）
-      db: 0,
-    },
-  };
+  // config.redis = {
+  //   client: {
+  //     host: '101.42.138.18', // Redis 服务器地址
+  //     port: 6379, // Redis 服务器端口号
+  //     password: '123456', // Redis 服务器密码（如果有的话）
+  //     db: 0,
+  //   },
+  // };
 
   config.security = {
     csrf: {

@@ -12,7 +12,7 @@ export class ApplicationService extends Service {
   async create({ name }: CreateApplication, { id }: TokenIncludeInfo) {
     const { Application, Permission, User } = this.ctx.repo;
 
-    const userRecord = await User.findOne({ where: { id }, relations: [ 'permissions' ] });
+    const userRecord = await User.findOne({ where: { id }, relations: ['permissions'] });
 
     if (!userRecord) {
       throw new HttpException(
@@ -44,7 +44,7 @@ export class ApplicationService extends Service {
       await Permission.save(commonPermission);
       await Permission.save(adminPermission);
 
-      userRecord.permissions = [ ...userRecord.permissions, adminPermission, commonPermission ];
+      userRecord.permissions = [...userRecord.permissions, adminPermission, commonPermission];
       await User.save(userRecord);
 
       return appData;
@@ -82,7 +82,7 @@ export class ApplicationService extends Service {
 
       // 删除应用的权限
       await Permission.remove(deletePermissions);
-      const user = await User.findOne({ where: { id: userData.id }, relations: [ 'permissions' ] });
+      const user = await User.findOne({ where: { id: userData.id }, relations: ['permissions'] });
       if (!user) {
         throw new HttpException(
           { message: '用户不存在', code: HttpStatus.BAD_REQUEST },
@@ -148,10 +148,22 @@ export class ApplicationService extends Service {
     return true;
   }
 
-  async getAppLogs() {
-    const { app } = this;
-    const redis = await app.redis.get('0');
-    return redis;
+  async validateHasApp(appId: string) {
+    const { Application } = this.ctx.repo;
+
+    const app = await Application.findOne({
+      where: {
+        appId,
+      },
+    });
+
+    if (!app) {
+      throw new HttpException(
+        { message: '找不到此appId', code: HttpStatus.BAD_REQUEST },
+        HttpStatus.OK,
+      );
+    }
+    return true
   }
 
   async getAppInfo(userId: TokenIncludeInfo['id'], appId: AppConfig['appId']) {
@@ -187,7 +199,7 @@ export class ApplicationService extends Service {
     }
 
     const appList = await queryBuilder
-      .select([ 'app.name', 'app.appId', 'app.appKey' ])
+      .select(['app.name', 'app.appId', 'app.appKey'])
       .getMany();
 
     return appList.map(item => {

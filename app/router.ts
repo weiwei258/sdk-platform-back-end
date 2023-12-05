@@ -19,7 +19,9 @@ export default (app: Application) => {
   router.get('/app/list', controller.application.getAppList);
   router.get('/app', controller.application.getAppInfo);
 
-  router.post('/upload/:path', controller.upload.index);
+  // router.post('/upload/:path', controller.upload.index);
+  router.post('/platform/upload', controller.upload.uploadForPlatform);
+  router.post('/plugin/upload', controller.upload.uploadForPlatform);
 
   router.post('/logs', controller.logs.index);
   router.get('/logs', controller.logs.getLogList);

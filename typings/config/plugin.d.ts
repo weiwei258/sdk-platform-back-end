@@ -17,7 +17,6 @@ import 'egg-jsonp';
 import 'egg-view';
 import 'egg-view-nunjucks';
 import 'egg-ts-typeorm';
-import 'egg-redis';
 import 'egg-cors';
 import { EggPluginItem } from 'egg';
 declare module 'egg' {
@@ -36,7 +35,6 @@ declare module 'egg' {
     view?: EggPluginItem;
     nunjucks?: EggPluginItem;
     typeorm?: EggPluginItem;
-    redis?: EggPluginItem;
     cors?: EggPluginItem;
   }
 }

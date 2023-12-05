@@ -7,10 +7,10 @@ export default {
     enable: true,
     package: 'egg-ts-typeorm',
   },
-  redis: {
-    enable: true,
-    package: 'egg-redis',
-  },
+  // redis: {
+  //   enable: true,
+  //   package: 'egg-redis',
+  // },
   static: {
     enable: true,
     package: 'egg-static',
