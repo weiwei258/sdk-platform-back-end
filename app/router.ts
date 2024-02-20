@@ -21,8 +21,10 @@ export default (app: Application) => {
 
   // router.post('/upload/:path', controller.upload.index);
   router.post('/platform/upload', controller.upload.uploadForPlatform);
-  router.post('/plugin/upload', controller.upload.uploadForPlatform);
+  router.get('/platform/fileList', controller.upload.getFileList);
+  router.delete('/platform/file', controller.upload.deleteFile);
+  router.post('/plugin/upload', controller.upload.uploadForPlugin);
 
   router.post('/logs', controller.logs.index);
-  router.get('/logs', controller.logs.getLogList);
+  router.post('/getLogs', controller.logs.getLogList);
 };

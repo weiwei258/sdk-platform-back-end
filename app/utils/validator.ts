@@ -18,3 +18,26 @@ export async function validateParams<T extends {}, D extends {}>(data: D, valida
 
   return validator;
 }
+
+export function validateDateRange(dateRange?:[string,string]){
+  if(!dateRange){
+    return true
+  }
+
+  const throwErr = ()=>{
+    throw new HttpException(
+      { message:'筛选格式不正确', code: HttpStatus.BAD_REQUEST },
+      HttpStatus.OK,
+    );
+  }
+  if(!Array.isArray(dateRange)){
+    throwErr()
+  }
+
+  try{
+    new Date(dateRange[0])
+    new Date(dateRange[1])
+  }catch(err){
+    throwErr()
+  }
+}

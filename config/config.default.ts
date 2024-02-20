@@ -58,9 +58,23 @@ export default (appInfo: EggAppConfig) => {
   // 文件上传配置
   config.multipart = {
     mode: 'file',
-    fileSize: '50mb', // 设置文件大小限制，默认为10mb
+    fileSize: '10mb', // 设置文件大小限制，默认为10mb
     whitelist: ['.jpg', '.jpeg', '.png', '.gif', '.js'], // 设置允许上传的文件类型
   };
+
+  // bodyParser 配置
+  config.bodyParser = {
+    enable: true,
+    jsonLimit: '10mb', // 设置 JSON 请求的大小限制为 10MB
+    formLimit: '10mb', // 设置表单请求的大小限制为 10MB
+  }
+
+  config.multipart = {
+    mode: 'file',
+    whitelist: ['.map', '.png', 'jpeg', 'jpg'],
+    files: 50,
+    fileSize:'100mb',
+  }
 
   const filePath = '../../static/uploads';
   const absolutePath = path.resolve(__dirname, filePath);
@@ -82,21 +96,12 @@ export default (appInfo: EggAppConfig) => {
       host: 'localhost',
       port: 3306,
       username: 'root',
-      password: '',
+      password: '12345678',
       database: 'egg',
       synchronize: true,
       logging: false,
     },
   };
-
-  // config.redis = {
-  //   client: {
-  //     host: '101.42.138.18', // Redis 服务器地址
-  //     port: 6379, // Redis 服务器端口号
-  //     password: '123456', // Redis 服务器密码（如果有的话）
-  //     db: 0,
-  //   },
-  // };
 
   config.security = {
     csrf: {

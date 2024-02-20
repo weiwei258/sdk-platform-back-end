@@ -22,4 +22,9 @@ export class GetLogsDTO {
    */
   @IsNotEmpty({ message: '缺少日志分类' })
   readonly category: TransportCategory;
+
+  /**
+   * 时间区间
+   */
+  readonly dateRange?: [string, string]
 }

@@ -1,5 +1,5 @@
 import { Controller } from 'egg';
-import { validateParams } from '../utils/validator';
+import { validateDateRange, validateParams } from '../utils/validator';
 import { GetLogsDTO, LogsDTO } from '../dto/logs.dto';
 import { validateToken } from '../utils/validateToken';
 import { json } from 'co-body';
@@ -17,7 +17,8 @@ export default class NewsController extends Controller {
   public async getLogList() {
     const { service, ctx } = this;
     validateToken(ctx.header?.authorization);
-    const getLogsParams = await validateParams(ctx.request.query, GetLogsDTO);
+    const getLogsParams = await validateParams(ctx.request.body, GetLogsDTO);
+    validateDateRange(getLogsParams.dateRange)
     return await service.logs.getLogList(getLogsParams);
   }
 }
