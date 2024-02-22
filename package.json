@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "egg-scripts start",
-    "server-start": "nodemon --exec 'egg-scripts start' &",
+    "server-start": "pm2 start egg-scripts -- start",
     "dev": "egg-bin dev",
     "debug": "egg-bin debug",
     "test-local": "egg-bin test",
