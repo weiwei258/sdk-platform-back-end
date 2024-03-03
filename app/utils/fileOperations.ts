@@ -25,6 +25,10 @@ export const moveFile = async (sourcePath: string, targetPath: string) => {
 }
 
 export const getFileList = (targetPath: string) => {
+  if (!fs.existsSync(targetPath)) {
+    return [];
+  }
+
   return fs.readdirSync(targetPath);
 }
 
